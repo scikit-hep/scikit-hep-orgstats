@@ -33,7 +33,7 @@ def stacked_plot(df, ax=None, **kargs):
         art = ax.bar(df.index, current, align='edge', bottom=bottom, **next(current_prop), **kargs)
         art.set_label(column)
         old = column
-        
+
     handles, labels = ax.get_legend_handles_labels()
     ax.legend(handles[::-1], labels[::-1], loc='center left')
 
@@ -49,57 +49,56 @@ def stacked_plot(df, ax=None, **kargs):
 @click.option('--filter', type=(str, str), multiple=True, help='Filter based on KEY VALUE')
 def cli(ctx, filename, name, minor, package, filter_package, unique, filter):
     ctx.ensure_object(dict)
-    
+
     if not filename:
         filename = list(map(str, Path('.').glob('*.csv')))
-        
+
     print("Reading:", *filename)
-        
+
     df = pd.concat(
                  pd.read_csv(f, parse_dates=['timestamp'],
                              infer_datetime_format=True,
                              dtype={'details_distro_version':str})
                  for f in filename)
-    
+
     # Optional "Uniqueness" column
     df["uniqueness"] = df[["file_project", "file_version", "country_code",
                            "details_distro_name", "details_distro_version",
                            "details_system_name", "details_system_release"]].apply(
                                 lambda x: hash(",".join(str(y) for y in x)), axis=1)
-    
+
     # Drop patch versions
     if not minor:
         df.file_version = df.file_version.str.split('.', 3).str[:2].str.join('.')
-    
+
     # Fill out packages
     if not package:
         package = df.file_project.unique()
-    
+
     if filter_package:
         package = list(package)
         for p in filter_package:
             package.remove(p)
-    
+
     if unique:
         print("Before unique filter:", len(df))
         df.drop_duplicates(["uniqueness"], inplace=True)
         print("After unique filter:", len(df))
-    
+
     if filter:
         for key, value in filter:
             print("Before filter:", len(df), key, '==' , value)
             df = df[df[key] == value]
             print("After filter:", len(df))
-    
+
     ctx.obj['df'] = df
     ctx.obj['prefix'] = name
     ctx.obj['packages'] = package
-    
+
     print("Packages:", *package)
 
-    
 
-    
+
 @cli.command(help='Make a weekly or daily downloads plot')
 @click.option('--daily', is_flag=True, help='Plot daily instead of weekly')
 @click.option('--key', '-k', default='file_version', help='Item to plot over, good choices include file_version (default)'
@@ -108,18 +107,22 @@ def cli(ctx, filename, name, minor, package, filter_package, unique, filter):
 def main(ctx, daily, key):
     total_df = ctx.obj['df']
     prefix = ctx.obj['prefix']
-    
+
     for name in ctx.obj['packages']:
         df = total_df[total_df.file_project == name]
-        results = df.groupby(key).resample('D' if daily else 'W', on='timestamp', convention='end').count()[key]
+        results = df.groupby(key).resample('D' if daily else 'W',
+                                           on='timestamp', 
+                                           loffset=datetime.timedelta(days=-6)).count()[key]
+        
         print("Computing", len(df), "entries for", name, 'with', len(df[key].unique()), 'unique', key)
         results_df = results[results > 0].unstack(0).fillna(0).astype(int)
 
         fig, ax = plt.subplots(figsize=(12, 5))
-        ax.xaxis.set_major_locator(mpldates.YearLocator())
-        ax.xaxis.set_major_formatter(mpldates.DateFormatter('\n%y'))
-        ax.xaxis.set_minor_locator(mpldates.MonthLocator())
-        ax.xaxis.set_minor_formatter(mpldates.DateFormatter('%b'))
+        #ax.xaxis.set_major_locator(mpldates.YearLocator())
+        #ax.xaxis.set_major_formatter(mpldates.DateFormatter('\n%y'))
+        #ax.xaxis.set_minor_locator(mpldates.MonthLocator())
+        #ax.xaxis.set_minor_formatter(mpldates.DateFormatter('%b'))
+        fig.autofmt_xdate()
         ax.set_ylabel(f"Number of downloads per {'day' if daily else 'week'}")
         ax.set_title(name)
         # df2.groupby("weeks").sum().plot.bar(stacked=True, width=1, ax=ax)
@@ -138,18 +141,21 @@ def all(ctx, daily, key):
     total_df = ctx.obj['df']
     prefix = ctx.obj['prefix']
     current_prop = prop_cycle()
-    
+
     df = total_df[total_df.file_project.isin(ctx.obj['packages'])]
-    
-    results = df.groupby(key).resample('D' if daily else 'W', on='timestamp', convention='end').count()[key]
+
+    results = df.groupby(key).resample('D' if daily else 'W',
+                                       on='timestamp',
+                                       loffset=datetime.timedelta(days=-6)).count()[key]
     print("Computing", len(df), 'entries with', len(df[key].unique()), 'unique', key)
     results_df = results[results > 0].unstack(0).fillna(0).astype(int)
 
     fig, ax = plt.subplots(figsize=(12, 6))
-    ax.xaxis.set_major_locator(mpldates.YearLocator())
-    ax.xaxis.set_major_formatter(mpldates.DateFormatter('\n%y'))
-    ax.xaxis.set_minor_locator(mpldates.MonthLocator())
-    ax.xaxis.set_minor_formatter(mpldates.DateFormatter('%b'))
+    #ax.xaxis.set_major_locator(mpldates.YearLocator())
+    #ax.xaxis.set_major_formatter(mpldates.DateFormatter('\n%y'))
+    #ax.xaxis.set_minor_locator(mpldates.MonthLocator())
+    #ax.xaxis.set_minor_formatter(mpldates.DateFormatter('%b'))
+    fig.autofmt_xdate()
     ax.set_ylabel(f"Number of downloads per {'day' if daily else 'week'}")
     ax.set_title('Projects' if key is 'file_project' else key)
     stacked_plot(results_df, ax, width=7)
@@ -179,6 +185,6 @@ def freq(ctx, key):
         plt.close(fig)
         print("Saved", fname)
 
-        
+
 if __name__ == '__main__':
     cli(obj=dict())

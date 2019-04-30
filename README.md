@@ -64,3 +64,23 @@ Filtering on only Switzerland:
 ```
 
 
+Before Scikit-HEP package:
+
+```bash
+./plot.py \
+  -p iminuit -p rootpy \
+  -p root_numpy -p root_pandas \
+  -p uproot \
+  all
+```
+
+```bash
+./plot.py \
+  -p pyjet \
+  -p particle \
+  -p hepunits \
+  -p formulate \
+  -p numpythia \
+  -p decaylanguage \
+  all
+```
