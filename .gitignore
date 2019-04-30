@@ -1,0 +1,8 @@
+*.pdf
+*.csv
+*.zip
+
+.env/*
+.ipynb_checkpoints/*
+*.py[co]
+__pycache__/*

@@ -1,0 +1,4 @@
+google-cloud-bigquery
+pandas
+matplotlib
+click
