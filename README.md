@@ -1,4 +1,8 @@
-# Stats aggregator
+# Statistics aggregator for the Scikit-HEP packages
+
+This is an admin-focused repository collecting scripts and material to look at
+statistics for the org packages.
+The present tools collect and display the [PyPI](https://pypi.org/) statistics of all org packages.
 
 ## Setup
 
@@ -64,7 +68,7 @@ Filtering on only Switzerland:
 ```
 
 
-Before Scikit-HEP package:
+To look at packages pre-dating the Scikit-HEP project:
 
 ```bash
 ./plot.py \
