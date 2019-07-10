@@ -7,8 +7,8 @@ import click
 @click.command()
 @click.option('--credentials', '-c', type=click.Path(exists=True), help='Path to your google API key, json file')
 @click.option('--output', '-o', type=click.Path(exists=False), help='Output file (defaults to scikit-hep-FROM-TO.csv)')
-@click.option('--from', '-f', 'from_', default='20180101', help='From date')
-@click.option('--to', '-t', default='20250101', help='To date')
+@click.option('--from', '-f', 'from_', default='20180101', show_default=True, help='From date')
+@click.option('--to', '-t', default='20250101', show_default=True, help='To date')
 def main(credentials, output, from_, to):
     if credentials is not None:
         os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = credentials

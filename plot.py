@@ -12,6 +12,10 @@ from cycler import cycler
 import click
 from pathlib import Path
 
+# Modern Pandas requires this
+from pandas.plotting import register_matplotlib_converters
+register_matplotlib_converters()
+
 # Requires Python 3.6+ for format strings
 
 # Add fill variations for large numbers of colors
