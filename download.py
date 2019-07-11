@@ -57,7 +57,14 @@ def main(credentials, output, from_, to):
         'rootpy',
         'histbook',
         'vegascope',
-        'formulate'
+        'formulate',
+        'pyhf',
+        'madminer',
+        'yadage',
+        'scikit-optimize',
+        'reana-client',
+        'excursion'
+        
       )
     """.format(from_=from_, to=to)
 
