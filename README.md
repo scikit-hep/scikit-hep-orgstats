@@ -58,7 +58,7 @@ Most of the commands don't do much to generate a custom name if you change optio
 Example:
 
 ```bash
-./plot.py --name 20190429_ all main freq
+./plot.py --name 20190429_ -x scikit-optimize all main freq
 ```
 
 Filtering on only Switzerland:
