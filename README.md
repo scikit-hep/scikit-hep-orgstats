@@ -4,8 +4,14 @@ This is an admin-focused repository collecting scripts and material to look at
 statistics for the org packages.
 The present tools collect and display the [PyPI](https://pypi.org/) statistics of all org packages.
 
+Rendered Jupyter notebooks for Python 2 vs. 3: [Table][] and [Plot][].
+
+[Table]: https://nbviewer.jupyter.org/github/scikit-hep/scikit-hep-orgstats/blob/master/Python2vs3.ipynb
+[Plot]: https://nbviewer.jupyter.org/github/scikit-hep/scikit-hep-orgstats/blob/master/Python2vs3Plot.ipynb
+
 ## Setup
 
+Warning: grabbing the last 2-3 years of data can use about $50 in cloud credits.
 The Google Big Query script is best run in a virtual environment:
 
 ```bash
