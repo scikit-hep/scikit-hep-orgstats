@@ -24,14 +24,18 @@ You will have to set up your credentials as described [here](https://cloud.googl
 
 ## Download
 
-Then, you can run the download script:
+Then, you can run the download script
 
 ```bash
 ./download.py -c ~/google-api-key.json
 ```
-(Either set `GOOGLE_APPLICATION_CREDENTIALS` or use the parameter shown above to set your API key file)
+(Either set `GOOGLE_APPLICATION_CREDENTIALS` or use the parameter shown above to set your API key file.)
 
 You can use `./download.py --help` to see options.
+
+Each package release contains the latest snapshots attached, which can be used
+to run several analyses, see below.
+Refer to the [releases page](https://github.com/scikit-hep/scikit-hep-orgstats/releases).
 
 ## Analyze
 
@@ -57,9 +61,13 @@ Commands:
   main  Make a weekly or daily downloads plot
 ```
 
-You can run multiple commands and often give options multiple times. `main`, `freq`, and `all`, support `--key KEY`, thought they choose a nice default. The two "per-week" plots also support a `--daily` flag to change weekly into daily statistics.
+You can run multiple commands and often give options multiple times.
+`main`, `freq`, and `all`, support `--key KEY`, though they choose a nice default.
+The two "per-week" plots also support a `--daily` flag to change weekly into daily statistics.
 
-Most of the commands don't do much to generate a custom name if you change options, so you can use the `--name` option to set a prefix. If you want minor versions to not be combined with major ones, pass `--minor`. You can list multiple `--package NAME` and `--filename NAME` options; otherwise they default to all.
+Most of the commands don't do much to generate a custom name if you change options, so you can use the `--name` option to set a prefix.
+If you want minor versions to not be combined with major ones, pass `--minor`.
+You can list multiple `--package NAME` and `--filename NAME` options; otherwise they default to all.
 
 Example:
 
@@ -72,7 +80,6 @@ Filtering on only Switzerland:
 ```bash
 ./plot.py -n CH_ -x uproot -x uproot-methods -x awkward -x root-pandas --filter country_code CH all
 ```
-
 
 To look at packages pre-dating the Scikit-HEP project:
 
