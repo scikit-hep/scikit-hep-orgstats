@@ -48,6 +48,7 @@ def main(credentials, output, from_, to):
         'formulate',
         'hepstats',
         'hepunits',
+        'hist',
         'histbook',
         'histoprint',
         'iminuit',
@@ -67,6 +68,7 @@ def main(credentials, output, from_, to):
         'scikit-hep-testdata',
         'scikit-optimize',
         'uproot',
+        'uproot4',
         'uproot-methods',
         'vegascope',
         'yadage'
