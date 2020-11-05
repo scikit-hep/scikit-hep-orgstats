@@ -24,7 +24,7 @@ You will have to set up your credentials as described [here](https://cloud.googl
 
 ## Download
 
-Then, you can run the download script
+Then, you can run the download script:
 
 ```bash
 ./download.py -c ~/google-api-key.json
