@@ -81,13 +81,14 @@ Filtering on only Switzerland:
 ./plot.py -n CH_ -x uproot -x uproot-methods -x awkward -x root-pandas --filter country_code CH all
 ```
 
-To look at packages pre-dating the Scikit-HEP project:
+To look at packages pre-dating the Scikit-HEP project and compare with the `uproot` series:
 
 ```bash
 ./plot.py \
   -p iminuit -p rootpy \
   -p root_numpy -p root_pandas \
   -p uproot \
+  -p uproot4 \
   all
 ```
 
@@ -96,7 +97,6 @@ To look at packages pre-dating the Scikit-HEP project:
   -p pyjet \
   -p particle \
   -p hepunits \
-  -p formulate \
   -p numpythia \
   -p decaylanguage \
   all
