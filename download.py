@@ -7,7 +7,7 @@ import click
 @click.command()
 @click.option('--credentials', '-c', type=click.Path(exists=True), help='Path to your google API key, json file')
 @click.option('--output', '-o', type=click.Path(exists=False), help='Output file (defaults to scikit-hep-FROM-TO.csv)')
-@click.option('--from', '-f', 'from_', default='20180101', show_default=True, help='From date')
+@click.option('--from', '-f', 'from_', default='20190531', show_default=True, help='From date')
 @click.option('--to', '-t', default='20250101', show_default=True, help='To date')
 def main(credentials, output, from_, to):
     if credentials is not None:
@@ -41,6 +41,7 @@ def main(credentials, output, from_, to):
       AND file.project IN (
         'aghast',
         'awkward',
+        'awkward0',
         'awkward1',
         'boost-histogram',
         'decaylanguage',
@@ -49,7 +50,6 @@ def main(credentials, output, from_, to):
         'hepstats',
         'hepunits',
         'hist',
-        'histbook',
         'histoprint',
         'iminuit',
         'madminer',
@@ -57,6 +57,7 @@ def main(credentials, output, from_, to):
         'numpythia',
         'particle',
         'probfit',
+        'pyBumpHunter',
         'pyhf',
         'pyjet',
         'pylhe',
@@ -67,9 +68,13 @@ def main(credentials, output, from_, to):
         'scikit-hep',
         'scikit-hep-testdata',
         'scikit-optimize',
+        'uhi',
         'uproot',
+        'uproot3',
         'uproot4',
         'uproot-methods',
+        'uproot3-methods',
+        'vector',
         'vegascope',
         'yadage'
       )

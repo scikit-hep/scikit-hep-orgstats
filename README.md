@@ -2,7 +2,8 @@
 
 This is an admin-focused repository collecting scripts and material to look at
 statistics for the org packages.
-The present tools collect and display the [PyPI](https://pypi.org/) statistics of all org packages.
+The present tools collect and display the [PyPI](https://pypi.org/) statistics of all org packages
+(and a few other friends).
 
 Rendered Jupyter notebooks for Python 2 vs. 3: [Table][] and [Plot][].
 
@@ -69,16 +70,18 @@ Most of the commands don't do much to generate a custom name if you change optio
 If you want minor versions to not be combined with major ones, pass `--minor`.
 You can list multiple `--package NAME` and `--filename NAME` options; otherwise they default to all.
 
-Example:
+### Examples
+
+A simple comparison of projects with frequency plots:
 
 ```bash
-./plot.py --name 20190429_ -x scikit-optimize all main freq
+./plot.py --name 20210101_ -x scikit-optimize all main freq
 ```
 
 Filtering on only Switzerland:
 
 ```bash
-./plot.py -n CH_ -x uproot -x uproot-methods -x awkward -x root-pandas --filter country_code CH all
+./plot.py -n CH_ -x uproot -x awkward --filter country_code CH all
 ```
 
 To look at packages pre-dating the Scikit-HEP project and compare with the `uproot` series:
